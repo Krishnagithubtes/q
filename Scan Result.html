@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://127.0.0.1:5050/scan -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Scan Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chart.js CDN -->
+    <script src="./Scan Result_files/chart.js.download"></script>
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .result-box {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #007BFF;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        canvas {
+            margin-top: 30px;
+            max-width: 100%;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>🔍 Scan Result for: https://www.amazon.in/</h2>
+    <div class="result-box">
+        
+            <ul>
+                <li><strong>Status:</strong> Status Code: 200</li>
+                <li><strong>XSS:</strong> Possible XSS found</li>
+                <li><strong>Clickjacking:</strong> Protected from clickjacking</li>
+                <li><strong>SQL Injection:</strong> No SQL Injection vulnerability</li>
+            </ul>
+
+            <h3>🛡️ Security Headers</h3>
+            <ul>
+                
+                    <li><strong>X-Content-Type-Options:</strong> nosniff</li>
+                
+                    <li><strong>Content-Security-Policy:</strong> upgrade-insecure-requests;report-uri https://metrics.media-amazon.com/</li>
+                
+                    <li><strong>Strict-Transport-Security:</strong> max-age=47474747; includeSubDomains; preload</li>
+                
+            </ul>
+
+            <!-- Chart Canvas -->
+            <canvas id="vulnChart" width="875" height="437" style="display: block; box-sizing: border-box; height: 350px; width: 700px;"></canvas>
+        
+    </div>
+
+    <a href="http://127.0.0.1:5050/">🔁 Scan another site</a>
+
+    <!-- Chart.js Script -->
+    <script>
+        const ctx = document.getElementById('vulnChart').getContext('2d');
+        const vulnChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['XSS', 'Clickjacking', 'SQL Injection'],
+                datasets: [{
+                    label: 'Vulnerability Status',
+                    data: [
+                        '1',
+                        '0',
+                        '0'
+                    ],
+                    backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Detected Vulnerabilities'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            callback: value => value === 1 ? 'Detected' : 'Safe'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body></html>
